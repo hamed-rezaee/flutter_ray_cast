@@ -69,11 +69,11 @@ class EnvironmentPainter extends CustomPainter {
         }
       }
 
-      if (hasIntersection) {
-        canvas.drawLine(ray.start, minIntersection, rayPaint);
-      } else {
-        canvas.drawLine(ray.start, ray.end, rayPaint);
-      }
+      canvas.drawLine(
+        ray.start,
+        hasIntersection ? minIntersection : ray.end,
+        rayPaint,
+      );
     }
   }
 }
