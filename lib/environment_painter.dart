@@ -42,14 +42,15 @@ class EnvironmentPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0.04;
 
-    for (double i = 0; i < 360; i += 0.1) {
+    for (double angle = 0; angle < 360; angle += 0.1) {
       final Boundary ray = Boundary(
         start: position,
         end: Offset(
-          position.dx + cos(-i * pi / 180) * maxRayLenght,
-          position.dy + sin(-i * pi / 180) * maxRayLenght,
+          position.dx + cos(-angle * pi / 180) * maxRayLenght,
+          position.dy + sin(-angle * pi / 180) * maxRayLenght,
         ),
       );
+
       bool hasIntersection = false;
       double minDistanse = double.infinity;
       Offset minIntersection;
