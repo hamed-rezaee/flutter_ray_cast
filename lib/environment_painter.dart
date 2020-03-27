@@ -43,14 +43,13 @@ class EnvironmentPainter extends CustomPainter {
       ..strokeWidth = 0.04;
 
     for (double i = 0; i < 360; i += 0.1) {
-      Boundary ray = Boundary(
+      final Boundary ray = Boundary(
         start: position,
         end: Offset(
           position.dx + cos(-i * pi / 180) * maxRayLenght,
           position.dy + sin(-i * pi / 180) * maxRayLenght,
         ),
       );
-
       bool hasIntersection = false;
       double minDistanse = double.infinity;
       Offset minIntersection;
@@ -70,9 +69,9 @@ class EnvironmentPainter extends CustomPainter {
       }
 
       if (hasIntersection) {
-        canvas.drawLine(position, minIntersection, rayPaint);
+        canvas.drawLine(ray.start, minIntersection, rayPaint);
       } else {
-        canvas.drawLine(position, ray.end, rayPaint);
+        canvas.drawLine(ray.start, ray.end, rayPaint);
       }
     }
   }
