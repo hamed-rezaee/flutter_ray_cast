@@ -27,11 +27,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Offset _position = Offset(0.0, 0.0);
-  List<Boundary> boundaries;
+  List<Boundary> _walls;
 
   @override
   void didChangeDependencies() {
-    boundaries = _generateBoundaries(size: 5);
+    _walls = _generateBox();
 
     super.didChangeDependencies();
   }
@@ -49,7 +49,8 @@ class _HomePageState extends State<HomePage> {
               child: CustomPaint(
                 painter: EnvironmentPainter(
                   position: _position,
-                  walls: boundaries,
+                  walls: _walls,
+                  // circles: _circles,
                   maxRayLenght: max(
                     MediaQuery.of(context).size.width,
                     MediaQuery.of(context).size.height,
@@ -64,8 +65,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.all(32.0),
             child: FlatButton(
-              onPressed: () =>
-                  setState(() => boundaries = _generateBoundaries(size: 5)),
+              onPressed: () => setState(() => _walls = _generateBox()),
               child: Text(
                 'RANDOMIZE',
                 style: TextStyle(
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  List<Boundary> _generateBoundaries({int size}) {
+  List<Boundary> _generateWalls({int size}) {
     int counter = 0;
     final List<Boundary> boundaries = [];
 
@@ -103,7 +103,8 @@ class _HomePageState extends State<HomePage> {
       bool hadIntersection = false;
 
       for (int index = 0; index < boundaries.length; index++) {
-        if (Helper.hasIntersection(boundary, boundaries[index])) {
+        if (Helper.hasIntersectionLine(
+            ray: boundary, line: boundaries[index])) {
           hadIntersection = true;
           break;
         }
@@ -114,6 +115,110 @@ class _HomePageState extends State<HomePage> {
         counter++;
       }
     }
+
+    return boundaries;
+  }
+
+  List<Boundary> _generateBox() {
+    final List<Boundary> boundaries = [];
+
+    Boundary boundary = Boundary(
+      start: Offset(
+        50.0,
+        100.0,
+      ),
+      end: Offset(
+        50.0,
+        200.0,
+      ),
+    );
+
+    Boundary boundary1 = Boundary(
+      start: Offset(
+        50.0,
+        100.0,
+      ),
+      end: Offset(
+        200.0,
+        100.0,
+      ),
+    );
+
+    Boundary boundary2 = Boundary(
+      start: Offset(
+        200.0,
+        100.0,
+      ),
+      end: Offset(
+        200.0,
+        200.0,
+      ),
+    );
+
+    Boundary boundary3 = Boundary(
+      start: Offset(
+        50.0,
+        200.0,
+      ),
+      end: Offset(
+        170.0,
+        200.0,
+      ),
+    );
+
+    boundaries.add(boundary);
+    boundaries.add(boundary1);
+    boundaries.add(boundary2);
+    boundaries.add(boundary3);
+
+    boundary = Boundary(
+      start: Offset(
+        70.0,
+        120.0,
+      ),
+      end: Offset(
+        70.0,
+        180.0,
+      ),
+    );
+
+    boundary1 = Boundary(
+      start: Offset(
+        70.0,
+        120.0,
+      ),
+      end: Offset(
+        180.0,
+        120.0,
+      ),
+    );
+
+    boundary2 = Boundary(
+      start: Offset(
+        180.0,
+        120.0,
+      ),
+      end: Offset(
+        180.0,
+        180.0,
+      ),
+    );
+
+    boundary3 = Boundary(
+      start: Offset(
+        70.0,
+        180.0,
+      ),
+      end: Offset(
+        150.0,
+        180.0,
+      ),
+    );
+
+    boundaries.add(boundary);
+    boundaries.add(boundary1);
+    boundaries.add(boundary2);
+    boundaries.add(boundary3);
 
     return boundaries;
   }

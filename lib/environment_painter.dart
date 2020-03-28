@@ -56,10 +56,12 @@ class EnvironmentPainter extends CustomPainter {
       Offset minIntersection;
 
       for (Boundary wall in walls) {
-        final Offset intersection = Helper.getIntersection(ray, wall);
-        final double distance = Helper.getDistanse(ray, intersection);
+        final Offset intersection =
+            Helper.getIntersectionLine(ray: ray, line: wall);
+        final double distance =
+            Helper.getDistanse(ray: ray, intersection: intersection);
         final bool currentWallHasIntersection =
-            Helper.hasIntersection(ray, wall);
+            Helper.hasIntersectionLine(ray: ray, line: wall);
 
         hasIntersection = hasIntersection || currentWallHasIntersection;
 
