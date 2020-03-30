@@ -29,7 +29,7 @@ class EnvironmentPainter extends CustomPainter {
   void _drawWalls(Canvas canvas) {
     final Paint wallPaint = Paint()
       ..color = Colors.white
-      ..strokeWidth = 1;
+      ..strokeWidth = 1.0;
 
     for (Boundary wall in walls) {
       canvas.drawLine(wall.start, wall.end, wallPaint);
@@ -42,12 +42,12 @@ class EnvironmentPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0.04;
 
-    for (double angle = 0; angle < 360; angle += 0.1) {
+    for (double angle = 0.0; angle < 360.0; angle += 0.1) {
       final Boundary ray = Boundary(
         start: position,
         end: Offset(
-          position.dx + cos(-angle * pi / 180) * maxRayLenght,
-          position.dy + sin(-angle * pi / 180) * maxRayLenght,
+          position.dx + cos(-angle * pi / 180.0) * maxRayLenght,
+          position.dy + sin(-angle * pi / 180.0) * maxRayLenght,
         ),
       );
 
